@@ -3,7 +3,6 @@ Herramienta de análisis electoral con PostgreSQL y Metabase
 
 
 
-```markdown
 # 🗳️ Análisis Electoral Personalizado - Servicio de Datos Estratégicos
 
 **Transforma datos electorales caóticos en dashboards accionables para campañas políticas.**  
@@ -38,7 +37,6 @@ Herramienta de análisis electoral con PostgreSQL y Metabase
       # Eliminar caracteres no numéricos
       df['dni'] = df['dni'].str.replace('[^0-9]', '', regex=True)
       return df
-  ```
 
 ### 2. **Dashboards Interactivos**
 - Acceso web a Metabase con filtros:
