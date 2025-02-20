@@ -28,9 +28,11 @@ Herramienta de análisis electoral con PostgreSQL y Metabase
 
 ### 1. **Procesamiento de Datos**
 - Normalización de:
-  - Padrones electorales (DNI, circuito, edad, género).
+  - Padrones electorales (DNI, circuito, edad(!), género(!)).
   - Resultados históricos (por circuito y partido).
-  - Datos ANSES (subsidios, jubilaciones).
+  - Datos de ANSES (subsidios, jubilaciones).
+  - Otras bases de datos que permitan obtener más datos sociodemográficos.
+  
 - Ejemplo de limpieza con Python:
   ```python
   def limpiar_dni(df):
@@ -50,11 +52,19 @@ Herramienta de análisis electoral con PostgreSQL y Metabase
     AND circuito IN (SELECT circuito FROM resultados WHERE partido = 'X' AND votos > 40)
   GROUP BY circuito;
   ```
+- Entrega y acceso:
+  - Los dashboards estarán disponibles en un dominio personalizado (ej: analisiselectoral.enter.com.ar/cliente_X)
+  - El acceso se gestionará mediante credenciales individuales proporcionadas al cliente.
+  - Cada usuario tendrá permisos de solo lectura para visualizar y filtrar datos según los criterios disponibles.
 
 ### 3. **Informe Estratégico**
-- 15-20 páginas con:
-  - Gráficos estáticos (tendencias, pirámides poblacionales).
-  - Conclusiones cualitativas (ej: "Priorizar escuelas en circuito 5 por alta densidad juvenil").
+  - Consolidación de los datos procesados en un documento claro, estructurado y orientado a la toma de decisiones.
+  - Insight claves y conclusiones cualitativas para la formulación de estrategias electorales.
+  - Ej:
+    - "Reforzar presencia territorial en circuito X debido a alto porcentaje de votantes indecisos en elecciones anteriores".
+    - "Orientar campaña hacia jubilados en el ciruito Y, donde este grupo representa el 40% del electorado".
+    - "Fortalecer discurso sobre empleo joven en circuito Z, donde el 35% de los votantes tiene entre 18 y 25 años".
+    - "Reformular estrategia en el circuito M, donde se estima que el voto joven (18-25 años) tuvo una mayor inclinación hacia la oposición en las últimas elecciones."
 
 ---
 
@@ -65,43 +75,31 @@ Herramienta de análisis electoral con PostgreSQL y Metabase
 | Python + Pandas       | Limpieza, cálculo de métricas y normalización.   | Gratuito (OSS)   |
 | PostgreSQL            | Almacenamiento de datos normalizados.            | Gratuito (OSS)   |
 | Metabase              | Visualización interactiva (dashboards).          | Gratuito (OSS)   |
-| AWS LightSail         | Servidor en la nube (1 vCPU, 2 GB RAM, 60 GB SSD)| USD 7/mes        |
+| AWS                   | Servidor en la nube para alojar DBs y Metabase   | USD 20/mes aprox |
 
 ---
 
-## 📈 Ejemplo Concreto: Caso de Éxito
+## 📈 Ejemplo
 
-**Problema**: El *Partido Y* necesitaba aumentar votos en circuitos urbanos con alta deserción juvenil.  
+**Problema**: El *Partido Y* necesita aumentar votos en circuitos urbanos con alta deserción juvenil.  
 **Solución**:
 1. Cruzar padrón electoral con datos de ANSES (AUH) y resultados 2023.
 2. Identificar 3 circuitos con:
-   - >30% de jóvenes (18-30).
+   - >30% de jóvenes (18-25).
    - Baja participación histórica (<50%).
 3. Dashboard clave:
    ![Dashboard AUH](images/dashboard_auh.png)
-4. **Resultado**: +18% de participación juvenil en 2 meses.
 
----
-
-## 💰 Costos Detallados
-
-| **Concepto**          | **Costo Mensual (USD)** | **Detalle**                              |
-|-----------------------|-------------------------|------------------------------------------|
-| AWS LightSail         | 7                       | Servidor básico (Linux + PostgreSQL).    |
-| Dominio Custom        | 10                      | Ej: `analisiselectoral.com`.             |
-| Mantenimiento         | 100                     | Soporte técnico y actualizaciones.       |
-| **Total**             | **117**                 | *(Sin costos ocultos)*                   |
 
 ---
 
 ## 📦 Entregables al Cliente
 
-- **Enlace privado a Metabase**: Ej: `https://metabase.analisiselectoral.com/dashboard/partido-x`.
+- **Enlace privado a Dashboard Metabase**: Ej: `https://analisiselectoral.enter.com.ar/cliente-x`.
 - **Informe PDF**: Incluye:
-  - Gráficos exportables.
+  - Gráficos estáticos.
   - Recomendaciones por circuito.
-  - Listas de DNIs hasheados (para campañas personalizadas).
-- **Soporte 24/7**: 7 días por correo/WhatsApp.
+- **Soporte**: X cantidad de días después de entregado.
 
 ---
 
@@ -123,39 +121,5 @@ pie
 
 ---
 
-## 🚀 Cómo Usar Este Repositorio
+**¿Listo para transformar datos en votos? ahre**  
 
-1. **Clonar**:
-   ```bash
-   git clone https://github.com/tuusuario/analisis-electoral.git
-   ```
-2. **Configurar PostgreSQL**:
-   ```bash
-   docker-compose up -d postgres
-   ```
-3. **Ejecutar Script de Normalización**:
-   ```bash
-   python scripts/normalizar.py padron.csv
-   ```
-
----
-
-**¿Listo para transformar datos en votos?**  
-📧 Contacto: `hola@analisiselectoral.com` | 📞 +54 9 11 1234-5678
-```
-
----
-
-### **Estructura de Carpetas Recomendada**  
-```bash
-analisis-electoral/
-├── data/                 # Datos de ejemplo (no commitear)
-├── images/               # Gráficos para el README
-│   ├── comparacion.png
-│   └── dashboard_auh.png
-├── scripts/              # Scripts de Python
-│   ├── normalizar.py
-│   └── limpiar_dni.py
-├── docker-compose.yml    # Configuración de PostgreSQL
-└── README.md             # Este archivo
-```
