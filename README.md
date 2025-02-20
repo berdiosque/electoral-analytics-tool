@@ -105,13 +105,6 @@ Herramienta de análisis electoral con PostgreSQL y Metabase
 
 ## 🔍 Importancia del Análisis Cualitativo + Cuantitativo
 
-```mermaid
-pie
-    title Sinergia de Métodos
-    "Cuantitativo": 60
-    "Cualitativo": 40
-```
-
 - **Cuantitativo**: 
   - *Métrica clave*: "El circuito B tiene un 45% de mujeres entre 40-60 años."
 - **Cualitativo**:
